@@ -153,7 +153,7 @@ public class LinkedListDeque<T> {  //T is the generic type
 
 	/*
 	creates a deep copy of other
-	 */
+
 	public LinkedListDeque(LinkedListDeque other) {
 		sentinel = new IntNode(null, null, null);
 		sentinel.prev = sentinel;
@@ -164,6 +164,6 @@ public class LinkedListDeque<T> {  //T is the generic type
 			addLast((T) other.get(i));
 		}
 
-	}
+	}*/
 
 }
