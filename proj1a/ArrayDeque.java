@@ -1,7 +1,4 @@
-
-
 public class ArrayDeque<T> {
-
     private int size;
     private T[] items;
     private static int CAPACITY = 8;
@@ -14,7 +11,7 @@ public class ArrayDeque<T> {
      */
     public ArrayDeque() {
         //initialize an array of generic type
-        items = (T[])new Object[CAPACITY];
+        items = (T[]) new Object[CAPACITY];
         size = 0;
         head = 0;
         tail = 1;
@@ -32,34 +29,33 @@ public class ArrayDeque<T> {
         }
     }
 
-    //check the
 
 
     private void reSizing(int instruct) {
-        int orig_size = items.length;
-        int new_size = 0;
+        int orig = items.length;
+        int cur = 0;
         //increase the size
 
         if (instruct == 1) {
-            new_size = orig_size * 2;
+            cur = orig * 2;
         } else if (instruct == -1) {
-            new_size = orig_size / 2;
+            cur = orig / 2;
         } else {
             System.out.println("Wrong instruction");
         }
 
-        T[] new_items = (T[])new Object[new_size];
+        T[] newItems = (T[]) new Object[cur];
 
         //copy the elements in the original array into the new array
         int i = 0;
         while (i < size) {
-            new_items[i] = items[head];
+            newItems[i] = items[head];
             i++;
-            head = (head + 1) % orig_size;
+            head = (head + 1) % orig;
         }
         head = 0;
         tail = size + 1;
-        items = new_items;
+        items = newItems;
 
     }
 
@@ -68,11 +64,7 @@ public class ArrayDeque<T> {
     }
 
     private boolean isLessThan25() {
-        if ((double)size / (double)items.length < 0.25) {
-            return true;
-        } else {
-            return false;
-        }
+        return (double) size / (double) items.length < 0.25;
     }
 
     private boolean isArrayFull() {
@@ -94,7 +86,7 @@ public class ArrayDeque<T> {
         //put item in the array
         int len = items.length;
         if (head != 0) {
-            items[head-1] = item;
+            items[head - 1] = item;
             head = (head - 1) % len;
         } else {
             items[len - 1] = item;
@@ -132,24 +124,24 @@ public class ArrayDeque<T> {
 
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         T res = null;
-        if(!isEmpty()){
+        if (!isEmpty()) {
             int len = items.length;
             res = items[head];
             items[head] = null;
             head = (head + 1) % len;
             size--;
-            if(isLessThan25()){
+            if (isLessThan25()) {
                 this.reSizing(-1);
             }
         }
         return res;
     }
 
-    public T removeLast(){
+    public T removeLast() {
         T res = null;
-        if(!isEmpty()) {
+        if (!isEmpty()) {
             int len = items.length;
             res = items[tail - 1];
             items[tail - 1] = null;
