@@ -1,6 +1,6 @@
 
 
-public class ArrayDeque<T>{
+public class ArrayDeque<T> {
 
     private int size;
     private T[] items;
@@ -12,7 +12,7 @@ public class ArrayDeque<T>{
     Creates an empty array deque
     The starting size of your array should be 8.
      */
-    public ArrayDeque(){
+    public ArrayDeque() {
         //initialize an array of generic type
         items = (T[])new Object[CAPACITY];
         size = 0;
@@ -23,11 +23,11 @@ public class ArrayDeque<T>{
     /*
     Creates a deep copy of other
      */
-    public  ArrayDeque(ArrayDeque other){
+    public  ArrayDeque(ArrayDeque other) {
         items = (T[]) new Object[CAPACITY];
         head = 0;
         tail = 1;
-        for(int i = 0; i < other.size; ++i){
+        for (int i = 0; i < other.size; ++i) {
             addLast((T) other.get(i));
         }
     }
@@ -35,17 +35,16 @@ public class ArrayDeque<T>{
     //check the
 
 
-    public void reSizing(int instruct){
+    private void reSizing(int instruct) {
         int orig_size = items.length;
         int new_size = 0;
         //increase the size
 
-        if(instruct == 1){
+        if (instruct == 1) {
             new_size = orig_size * 2;
-        }else if(instruct == -1){
+        } else if (instruct == -1) {
             new_size = orig_size / 2;
-        }
-        else{
+        } else {
             System.out.println("Wrong instruction");
         }
 
@@ -53,7 +52,7 @@ public class ArrayDeque<T>{
 
         //copy the elements in the original array into the new array
         int i = 0;
-        while(i < size){
+        while (i < size) {
             new_items[i] = items[head];
             i++;
             head = (head + 1) % orig_size;
@@ -64,49 +63,49 @@ public class ArrayDeque<T>{
 
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
-    public boolean isLessThan25(){
-        if((double)size / (double)items.length < 0.25){
+    private boolean isLessThan25() {
+        if ((double)size / (double)items.length < 0.25) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean isArrayFull(){
-        if(size == items.length){
+    private boolean isArrayFull() {
+        if (size == items.length) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
 
 
-    public void addFirst(T item){
-        if(isArrayFull()) {
+    public void addFirst(T item) {
+        if (isArrayFull()) {
             //resizing the array, 1 indicates increasing size
             this.reSizing(1);
         }
 
         //put item in the array
         int len = items.length;
-        if(head != 0){
+        if (head != 0) {
             items[head-1] = item;
             head = (head - 1) % len;
-        }else{
+        } else {
             items[len - 1] = item;
             head = len - 1;
         }
         size++;
     }
 
-    public void addLast(T item){
-        if(isArrayFull()) {
-            System.out.println("The array is full, now resizing...");
+    public void addLast(T item) {
+        if (isArrayFull()) {
+            //System.out.println("The array is full, now resizing...");
             this.reSizing(1);
         }
         int len = items.length;
@@ -116,17 +115,17 @@ public class ArrayDeque<T>{
     }
 
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         int cur;
         cur = head;
-        int i=0;
-        while(i < size){
+        int i = 0;
+        while (i < size) {
             System.out.print(items[cur] + " ");
-            cur = (cur+1) % items.length;
+            cur = (cur + 1) % items.length;
             i++;
         }
         System.out.println();
@@ -167,7 +166,7 @@ public class ArrayDeque<T>{
     Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
     If no such item exists, returns null. Must not alter the deque!
      */
-    public T get(int index){
+    public T get(int index) {
         int n = items.length;
         return items[index % n];
     }
